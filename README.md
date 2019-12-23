@@ -16,4 +16,4 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 Below screenshot of Flutter version of F44Red app:
-![F44RedFlutter Example](./images/f44red.png)
+![F44RedFlutter Example](./images/image.png)
