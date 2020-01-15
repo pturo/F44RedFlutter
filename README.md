@@ -1,4 +1,4 @@
-# f44red_flutter
+# F44Red Flutter
 
 F44Red Android App made in Flutter
 
