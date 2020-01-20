@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:transparent_image/transparent_image.dart';
 import 'f44red_post.dart';
 
 class F44RedHome extends StatefulWidget {
@@ -43,57 +42,85 @@ class F44RedHomeState extends State<F44RedHome> {
       appBar: AppBar(title: Text("F44Red"), backgroundColor: Colors.redAccent),
       drawer: DrawerNav(),
       body: ListView.builder(
-        itemCount: posts == null ? 0 : posts.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: <Widget>[
-              Card(
-                child: Column(
-                  children: <Widget>[
-                    new FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: posts[index]["featured_media"] == 0
-                          ? 'images/placeholder.png'
-                          : posts[index]["_embedded"]["wp:featuredmedia"][0]
-                              ["source_url"],
-                    ),
-                    new Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: new ListTile(
-                          title: new Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.0),
-                              child:
-                                  new Text(posts[index]["title"]["rendered"])),
-                          subtitle: new Text(posts[index]["excerpt"]["rendered"]
-                              .replaceAll(RegExp('&#8211;'), '–')),
-                        )),
-                    // ignore: deprecated_member_use
-                    new ButtonTheme.bar(
-                      child: new ButtonBar(
-                        children: <Widget>[
-                          new FlatButton(
-                            child: const Text('READ MORE'),
-                            color: Colors.red,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                  builder: (context) =>
-                                      new F44RedPost(post: posts[index]),
-                                ),
-                              );
-                            },
+          itemCount: posts == null ? 0 : posts.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () { Navigator.push(context, new MaterialPageRoute(builder: (context) => new F44RedPost(post: posts[index])));},
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Material(
+                  elevation: 14.0,
+                  borderRadius: BorderRadius.circular(10.0),
+                  shadowColor: Theme.of(context).primaryColor.withOpacity(.5),
+                  child: SizedBox(
+                    height: 200.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      children: <Widget>[
+                        FadeInImage.assetNetwork(
+                            placeholder: 'images/placeholder.png',
+                            image: posts[index]["featured_media"] == 0
+                                ? 'images/placeholder.png'
+                                : posts[index]["_embedded"]["wp:featuredmedia"][0]
+                            ["source_url"],
+                            width: MediaQuery.of(context).size.width,
+                            fit: BoxFit.cover),
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      Colors.black,
+                                      Colors.transparent
+                                    ])),
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 15.0,
+                                  bottom: 5.0,
+                                  left: 5.0,
+                                  right: 5.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Text(
+                                        posts[index]["title"]["rendered"],
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18.0,
+                                          shadows: <Shadow>[
+                                            Shadow(
+                                              offset: Offset(1.0, 1.0),
+                                              blurRadius: 5.0,
+                                              color: Colors.black,
+                                            ),
+                                            Shadow(
+                                              offset: Offset(1.0, 1.0),
+                                              blurRadius: 8.0,
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              )
-            ],
-          );
-        },
-      ),
+              ),
+            );
+          }),
     );
   }
 }

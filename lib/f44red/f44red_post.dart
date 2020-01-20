@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_html_view/flutter_html_view.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class F44RedPost extends StatelessWidget {
   var post;
@@ -23,7 +23,15 @@ class F44RedPost extends StatelessWidget {
                   ? 'images/placeholder.png'
                   : post["_embedded"]["wp:featuredmedia"][0]["source_url"],
             ),
-            new HtmlView(data: post['content']['rendered'])
+            new Html(
+              data: post['content']['rendered'],
+              padding: EdgeInsets.all(8.0),
+              linkStyle: const TextStyle(
+                color: Colors.redAccent,
+                decorationColor: Colors.redAccent,
+                decoration: TextDecoration.underline
+              ),
+            )
           ],
         ),
       ),
