@@ -30,6 +30,12 @@ class F44RedHomeState extends State<F44RedHome> {
     return "Success!";
   }
 
+  Future<Null> _refresh() {
+    return getPosts().then((post) {
+      setState(() => post = posts as String);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
