@@ -6,7 +6,7 @@ Improved appearance and added post details.
 
 ## About project
 
-This is second version of F44Red mobile app made with Flutter framework this time. Previous version was made with Android Studio 
+This is second version of F44Red mobile app made with Flutter framework this time. Previous version was made with Android Studio.
 
 Working app below:
 
